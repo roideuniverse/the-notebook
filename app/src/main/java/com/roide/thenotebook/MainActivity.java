@@ -2,15 +2,50 @@ package com.roide.thenotebook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.carrotcreative.recyclercore.adapter.RecyclerCoreAdapter;
+import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
+import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.InjectView;
+
 public class MainActivity extends AppCompatActivity {
+
+    @InjectView(R.id.main_recycler_view)
+    ProgressRecyclerViewLayout mRecyclerViewLayout;
+    private LinearLayoutManager mLayoutManager;
+    private RecyclerCoreAdapter mMainAdapter;
+    private List<RecyclerCoreModel> mMainAdapterModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    private void prepareRecyclerView() {
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerViewLayout.setLayoutManager(mLayoutManager);
+
+        mMainAdapterModels = new ArrayList<>();
+
+    }
+
+    private void notifyDataSetChanged() {
+        if(mMainAdapter == null) {
+            mMainAdapter = new RecyclerCoreAdapter(mMainAdapterModels);
+            mRecyclerViewLayout.setAdapter(mMainAdapter);
+        }
+        else {
+            mMainAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
