@@ -9,16 +9,18 @@ import android.view.MenuItem;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreAdapter;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
+import com.roide.thenotebook.recycler.OneEntry;
+import com.roide.thenotebook.recycler.model.DayEntryModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity {
 
-    @InjectView(R.id.main_recycler_view)
-    ProgressRecyclerViewLayout mRecyclerViewLayout;
+    @InjectView(R.id.main_recycler_view) ProgressRecyclerViewLayout mRecyclerViewLayout;
     private LinearLayoutManager mLayoutManager;
     private RecyclerCoreAdapter mMainAdapter;
     private List<RecyclerCoreModel> mMainAdapterModels;
@@ -27,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
+        prepareRecyclerView();
+        ArrayList<OneEntry> oneEntry = new ArrayList();
+        oneEntry.add(new OneEntry());
+        mMainAdapterModels.add(new DayEntryModel().addEntry(oneEntry));
+        notifyDataSetChanged();
     }
 
     private void prepareRecyclerView() {
