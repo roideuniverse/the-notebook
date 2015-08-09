@@ -1,7 +1,7 @@
 # the-notebook
 Note taking Android App
 
-There are 4 basic tasks
+There are 4 basic features in this app. UI design is flexible - feel free to change it.
 
 1. User should be able to add a new entry.
    [Issue-#3](https://github.com/roideuniverse/the-notebook/issues/3)
