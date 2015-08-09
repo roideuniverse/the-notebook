@@ -1,2 +1,2 @@
 # the-notebook
-Not taking Android App
+Note taking Android App
