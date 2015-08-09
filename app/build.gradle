@@ -25,4 +25,5 @@ dependencies {
     compile project(':recycler-core')
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.android.support:cardview-v7:22.2.0'
+    compile 'com.getbase:floatingactionbutton:1.10.0'
 }

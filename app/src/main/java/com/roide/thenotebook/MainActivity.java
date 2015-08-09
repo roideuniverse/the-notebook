@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreAdapter;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.roide.thenotebook.recycler.OneEntry;
 import com.roide.thenotebook.recycler.model.DayEntryModel;
 
@@ -17,10 +19,12 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.main_recycler_view) ProgressRecyclerViewLayout mRecyclerViewLayout;
+    @InjectView(R.id.main_fab) AddFloatingActionButton mFloatingActionButton;
     private LinearLayoutManager mLayoutManager;
     private RecyclerCoreAdapter mMainAdapter;
     private List<RecyclerCoreModel> mMainAdapterModels;
@@ -76,5 +80,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.main_fab)
+    public void onFABClicked() {
+        Toast.makeText(getApplicationContext(), "fab clicked", Toast.LENGTH_SHORT).show();
     }
 }
