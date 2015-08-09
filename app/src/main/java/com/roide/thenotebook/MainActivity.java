@@ -1,5 +1,6 @@
 package com.roide.thenotebook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -85,5 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.main_fab)
     public void onFABClicked() {
         Toast.makeText(getApplicationContext(), "fab clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, NewEntry.class);
+        startActivity(intent);
     }
 }
