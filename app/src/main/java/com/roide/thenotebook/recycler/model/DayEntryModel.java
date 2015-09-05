@@ -7,17 +7,15 @@ import android.view.ViewGroup;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreController;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.roide.thenotebook.R;
-import com.roide.thenotebook.recycler.OneEntry;
+import com.roide.thenotebook.backend.DayEntry;
 import com.roide.thenotebook.recycler.controller.DayEntryController;
-
-import java.util.List;
 
 /**
  * Created by roide on 8/9/15.
  */
 public class DayEntryModel extends RecyclerCoreModel {
 
-    private List<OneEntry> mEntryList;
+    private DayEntry mDayEntry;
 
     @Override
     public RecyclerCoreController buildController(LayoutInflater inflater, ViewGroup parent) {
@@ -25,12 +23,12 @@ public class DayEntryModel extends RecyclerCoreModel {
         return new DayEntryController(root);
     }
 
-    public DayEntryModel addEntry(List<OneEntry> list) {
-        mEntryList = list;
+    public DayEntryModel addEntry(DayEntry dayEntry) {
+        mDayEntry = dayEntry;
         return this;
     }
 
-    public List<OneEntry> getEntryList() {
-        return mEntryList;
+    public DayEntry getEntryList() {
+        return mDayEntry;
     }
 }

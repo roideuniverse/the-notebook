@@ -12,7 +12,8 @@ import com.carrotcreative.recyclercore.adapter.RecyclerCoreAdapter;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
-import com.roide.thenotebook.recycler.OneEntry;
+import com.roide.thenotebook.backend.DayEntry;
+import com.roide.thenotebook.backend.OneEntry;
 import com.roide.thenotebook.recycler.model.DayEntryModel;
 
 import java.util.ArrayList;
@@ -36,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         prepareRecyclerView();
-        ArrayList<OneEntry> oneEntry = new ArrayList();
-        oneEntry.add(new OneEntry());
-        mMainAdapterModels.add(new DayEntryModel().addEntry(oneEntry));
+        DayEntry entry = new DayEntry();
+        mMainAdapterModels.add(new DayEntryModel().addEntry(entry));
         notifyDataSetChanged();
     }
 
