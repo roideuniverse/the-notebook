@@ -32,7 +32,7 @@ public class Util
 
     public static File getExternalStorageDir(Context context)
     {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
                 getAppName(context));
 
         if (!file.mkdirs()) {

@@ -12,7 +12,9 @@
         android:padding="@dimen/standard_margin"
         android:orientation="vertical"
         >
+
         <EditText
+            android:id="@+id/new_entry_edit_text"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"

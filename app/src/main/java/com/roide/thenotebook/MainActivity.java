@@ -14,7 +14,8 @@ import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.roide.thenotebook.backend.DayEntry;
 import com.roide.thenotebook.backend.OneEntry;
-import com.roide.thenotebook.recycler.model.DayEntryModel;
+import com.roide.thenotebook.backend.StorageManager;
+import com.roide.thenotebook.recycler.model.EntryModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         prepareRecyclerView();
-        DayEntry entry = new DayEntry();
-        mMainAdapterModels.add(new DayEntryModel().addEntry(entry));
-        notifyDataSetChanged();
     }
 
     private void prepareRecyclerView() {
@@ -59,6 +57,27 @@ public class MainActivity extends AppCompatActivity {
         else {
             mMainAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void reloadData()
+    {
+        mMainAdapterModels.clear();
+        StorageManager storageManager = StorageManager.getInstance(getApplicationContext());
+        for(DayEntry entry : storageManager.getAllEntries().values())
+        {
+            for(OneEntry oneEntry: entry.getEntryList())
+            {
+                mMainAdapterModels.add(new EntryModel().setEntry(oneEntry));
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        reloadData();
     }
 
     @Override

@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,6 +17,7 @@ public class StorageManager
 {
     private static StorageManager mInstance;
     private Context mContext;
+    private static final String TAG = StorageManager.class.getSimpleName();
 
     public StorageManager(Context context)
     {
@@ -73,17 +73,29 @@ public class StorageManager
         return null;
     }
 
-    public Map<Date, DayEntry> getAllEntries()
+    public Map<String, DayEntry> getAllEntries()
     {
         File baseDir = new File(Util.getExternalStorageDir(mContext).getAbsolutePath());
         File [] allFiles = baseDir.listFiles();
 
-        Map<Date, DayEntry>  map = new TreeMap<>();
+        Map<String, DayEntry>  map = new TreeMap<>();
         for(File file: allFiles)
         {
-            Date d = Util.getDateFromString(file.getName());
-            map.put(d, extract(file));
+            map.put(file.getName(), extract(file));
         }
         return map;
+    }
+
+    public DayEntry getTodayEntry()
+    {
+        String today = Util.getTodayDate();
+        Map<String, DayEntry> allEntries = getAllEntries();
+
+        if(allEntries.containsKey(today))
+        {
+            return getAllEntries().get(today);
+        }
+
+        return null;
     }
 }
