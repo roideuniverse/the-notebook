@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -78,7 +80,7 @@ public class StorageManager
         File baseDir = new File(Util.getExternalStorageDir(mContext).getAbsolutePath());
         File [] allFiles = baseDir.listFiles();
 
-        Map<String, DayEntry>  map = new TreeMap<>();
+        Map<String, DayEntry>  map = new TreeMap<>(mDateComparator);
         for(File file: allFiles)
         {
             map.put(file.getName(), extract(file));
@@ -98,4 +100,15 @@ public class StorageManager
 
         return null;
     }
+
+    private Comparator<String> mDateComparator = new Comparator<String>()
+    {
+        @Override
+        public int compare(String strDate1, String strDate2)
+        {
+            Date d1 = Util.getDateFromString(strDate1);
+            Date d2 = Util.getDateFromString(strDate2);
+            return d1.compareTo(d2);
+        }
+    };
 }

@@ -16,8 +16,12 @@ import com.roide.thenotebook.backend.DayEntry;
 import com.roide.thenotebook.backend.OneEntry;
 import com.roide.thenotebook.backend.StorageManager;
 import com.roide.thenotebook.recycler.model.EntryModel;
+import com.roide.thenotebook.recycler.model.WeekDisplayModel;
+import com.roide.thenotebook.util.Util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -63,8 +67,23 @@ public class MainActivity extends AppCompatActivity {
     {
         mMainAdapterModels.clear();
         StorageManager storageManager = StorageManager.getInstance(getApplicationContext());
+        String strDate = null;
         for(DayEntry entry : storageManager.getAllEntries().values())
         {
+            if(strDate == null)
+            {
+                strDate = entry.getDate();
+                mMainAdapterModels.add(new WeekDisplayModel().setDate(strDate));
+            }
+            else if(! strDate.equals(entry.getDate()))
+            {
+                if(Util.getWeekOfYear(entry.getDate()) != Util.getWeekOfYear(strDate))
+                {
+                    strDate = entry.getDate();
+                    mMainAdapterModels.add(new WeekDisplayModel().setDate(strDate));
+                }
+            }
+
             for(OneEntry oneEntry: entry.getEntryList())
             {
                 mMainAdapterModels.add(new EntryModel().setEntry(oneEntry));

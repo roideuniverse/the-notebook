@@ -10,6 +10,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,5 +65,21 @@ public class Util
             e.printStackTrace();
         }
         return new Date();
+    }
+
+    public static int getWeekOfYear(String date1)
+    {
+        Date date = getDateFromString(date1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public static int getDayOfWeek(String date1)
+    {
+        Date date = getDateFromString(date1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 }
