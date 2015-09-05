@@ -28,7 +28,7 @@ public class DayEntryModel extends RecyclerCoreModel {
         return this;
     }
 
-    public DayEntry getEntryList() {
+    public DayEntry getDayEntry() {
         return mDayEntry;
     }
 }

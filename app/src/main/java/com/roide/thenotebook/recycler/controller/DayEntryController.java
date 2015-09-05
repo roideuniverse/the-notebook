@@ -25,7 +25,7 @@ public class DayEntryController extends RecyclerCoreController<DayEntryModel> {
 
     @Override
     public void bind(DayEntryModel model) {
-        int len = model.getEntryList().size();
+        int len = 5;//model.getDayEntry().getEntryList().size();
         for(int i=0;i < 2*len; i++) {
             mContainer.addView(new OneEntryView(getContext()));
         }
