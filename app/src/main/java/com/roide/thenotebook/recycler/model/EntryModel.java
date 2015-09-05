@@ -8,27 +8,28 @@ import com.carrotcreative.recyclercore.adapter.RecyclerCoreController;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.roide.thenotebook.R;
 import com.roide.thenotebook.backend.DayEntry;
-import com.roide.thenotebook.recycler.controller.DayEntryController;
+import com.roide.thenotebook.backend.OneEntry;
+import com.roide.thenotebook.recycler.controller.EntryController;
 
 /**
  * Created by roide on 8/9/15.
  */
-public class DayEntryModel extends RecyclerCoreModel {
+public class EntryModel extends RecyclerCoreModel {
 
-    private DayEntry mDayEntry;
+    private OneEntry mOneEntry;
 
     @Override
     public RecyclerCoreController buildController(LayoutInflater inflater, ViewGroup parent) {
-        View root = inflater.inflate(R.layout.element_day_entry, parent, false);
-        return new DayEntryController(root);
+        View root = inflater.inflate(R.layout.elelement_one_entry, parent, false);
+        return new EntryController(root);
     }
 
-    public DayEntryModel addEntry(DayEntry dayEntry) {
-        mDayEntry = dayEntry;
+    public EntryModel setEntry(OneEntry oneEntry) {
+        mOneEntry = oneEntry;
         return this;
     }
 
-    public DayEntry getDayEntry() {
-        return mDayEntry;
+    public OneEntry getDayEntry() {
+        return mOneEntry;
     }
 }

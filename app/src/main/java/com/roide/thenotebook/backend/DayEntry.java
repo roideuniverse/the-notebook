@@ -1,5 +1,9 @@
 package com.roide.thenotebook.backend;
 
+import com.roide.thenotebook.util.Util;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -9,6 +13,12 @@ public class DayEntry
 {
     private String mDate;
     private List<OneEntry> mEntryList;
+
+    public DayEntry()
+    {
+        mDate = Util.getTodayDate();
+        mEntryList = new ArrayList<>();
+    }
 
     public String getDate()
     {

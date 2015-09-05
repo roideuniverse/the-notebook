@@ -17,9 +17,9 @@
         >
 
         <TextView
+            android:id="@+id/element_one_entry_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="* hey wassup!"
             android:padding="@dimen/standard_margin"
             />
 
