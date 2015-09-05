@@ -11,8 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class StorageManager
 {
@@ -78,7 +78,7 @@ public class StorageManager
         File baseDir = new File(Util.getExternalStorageDir(mContext).getAbsolutePath());
         File [] allFiles = baseDir.listFiles();
 
-        Map<Date, DayEntry>  map = new HashMap<>();
+        Map<Date, DayEntry>  map = new TreeMap<>();
         for(File file: allFiles)
         {
             Date d = Util.getDateFromString(file.getName());
