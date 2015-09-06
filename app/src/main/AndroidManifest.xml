@@ -8,10 +8,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".app.TheNotebook"
+        >
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
 
@@ -24,16 +26,29 @@
         </activity>
 
         <activity
-            android:name=".NewEntry"
+            android:name=".activities.NewEntry"
             android:label="@string/title_activity_new_entry"
             >
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
+                android:value=".activities.MainActivity"
                 />
 
         </activity>
+
+        <activity
+            android:name=".activities.EditEntry"
+            android:label="@string/title_activity_new_entry"
+            >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity"
+                />
+
+        </activity>
+
     </application>
 
 </manifest>

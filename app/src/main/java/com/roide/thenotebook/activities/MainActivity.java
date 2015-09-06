@@ -1,4 +1,4 @@
-package com.roide.thenotebook;
+package com.roide.thenotebook.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import com.carrotcreative.recyclercore.adapter.RecyclerCoreAdapter;
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreModel;
 import com.carrotcreative.recyclercore.widget.ProgressRecyclerViewLayout;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
+import com.roide.thenotebook.R;
 import com.roide.thenotebook.backend.DayEntry;
 import com.roide.thenotebook.backend.OneEntry;
 import com.roide.thenotebook.backend.StorageManager;
@@ -21,8 +22,6 @@ import com.roide.thenotebook.recycler.model.WeekDisplayModel;
 import com.roide.thenotebook.util.Util;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private void reloadData()
     {
         mMainAdapterModels.clear();
-        StorageManager storageManager = StorageManager.getInstance(getApplicationContext());
+        StorageManager storageManager = StorageManager.getInstance();
         String strDate = null;
         int position = 0;
         for(DayEntry entry : storageManager.getAllEntries().values())

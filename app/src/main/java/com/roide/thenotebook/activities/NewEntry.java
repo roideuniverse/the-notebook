@@ -1,4 +1,4 @@
-package com.roide.thenotebook;
+package com.roide.thenotebook.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.roide.thenotebook.R;
 import com.roide.thenotebook.backend.DayEntry;
 import com.roide.thenotebook.backend.OneEntry;
 import com.roide.thenotebook.backend.StorageManager;
@@ -17,7 +18,6 @@ import butterknife.OnClick;
 
 public class NewEntry extends AppCompatActivity {
 
-    //@InjectView(R.id.new_entry_save) Button mSaveButton;
     @InjectView(R.id.new_entry_edit_text) EditText mEditText;
 
     @Override
@@ -37,9 +37,9 @@ public class NewEntry extends AppCompatActivity {
         }
     }
 
-    private void save(String content)
+    protected void save(String content)
     {
-        StorageManager storageManager = StorageManager.getInstance(getApplicationContext());
+        StorageManager storageManager = StorageManager.getInstance();
         DayEntry dayEntry = storageManager.getTodayEntry();
 
         OneEntry oneEntry = new OneEntry();
@@ -53,6 +53,5 @@ public class NewEntry extends AppCompatActivity {
         dayEntry.getEntryList().add(oneEntry);
         storageManager.save(dayEntry);
         finish();
-
     }
 }
