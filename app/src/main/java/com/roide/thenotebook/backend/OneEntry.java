@@ -14,13 +14,25 @@ import java.util.Date;
 /**
  * Created by roide on 8/9/15.
  */
-public class OneEntry {
+public class OneEntry
+{
     private String mEntryText;
     private String mDateTime;
+    private int mId = -1;
 
     public OneEntry()
     {
         mDateTime = Util.getDateString(new Date());
+    }
+
+    public void setId(int id)
+    {
+        mId = id;
+    }
+
+    public int getId()
+    {
+        return mId;
     }
 
     public String getEntryText()

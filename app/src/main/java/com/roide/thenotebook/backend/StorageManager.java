@@ -19,14 +19,39 @@ public class StorageManager
 {
     private static StorageManager mInstance;
     private Context mContext;
+    private int mLastId;
+
+    private Comparator<String> mDateComparator = new Comparator<String>()
+    {
+        @Override
+        public int compare(String strDate1, String strDate2)
+        {
+            Date d1 = Util.getDateFromString(strDate1);
+            Date d2 = Util.getDateFromString(strDate2);
+            return d1.compareTo(d2);
+        }
+    };
+
+    /**
+     * Key = String date
+     * Value = DayEntry
+     */
+    private Map<String, DayEntry> mAllEntriesMap = new TreeMap<>(mDateComparator);
+
     private static final String TAG = StorageManager.class.getSimpleName();
 
-    public StorageManager(Context context)
+    private StorageManager(Context context)
     {
         mContext = context;
+        initAllEntries();
     }
 
-    public static StorageManager getInstance(Context context)
+    public static StorageManager initialize(Context context)
+    {
+        return getInstance(context);
+    }
+
+    private static StorageManager getInstance(Context context)
     {
         if(mInstance == null)
         {
@@ -35,8 +60,26 @@ public class StorageManager
         return mInstance;
     }
 
+    public static StorageManager getInstance()
+    {
+        return mInstance;
+    }
+
     public void save(DayEntry dayEntry)
     {
+        for(OneEntry oneEntry: dayEntry.getEntryList())
+        {
+            if(oneEntry.getId() == -1)
+            {
+                oneEntry.setId(mLastId++);
+            }
+        }
+
+        if(! mAllEntriesMap.containsKey(dayEntry.getDate()))
+        {
+            mAllEntriesMap.put(dayEntry.getDate(), dayEntry);
+        }
+
         File file = new File(Util.getExternalStorageDir(mContext), dayEntry.getDate());
         Gson gson = new Gson();
         String json = gson.toJson(dayEntry);
@@ -56,7 +99,6 @@ public class StorageManager
     public DayEntry extract(File file)
     {
         Gson gson = new Gson();
-
         try
         {
             BufferedReader bReader = new BufferedReader(new FileReader(file));
@@ -66,7 +108,13 @@ public class StorageManager
             {
                 content.append(line);
             }
-            return gson.fromJson(content.toString(), DayEntry.class);
+            DayEntry dayEntry = gson.fromJson(content.toString(), DayEntry.class);
+            for(OneEntry oneEntry: dayEntry.getEntryList())
+            {
+                mLastId = Math.max(mLastId, oneEntry.getId());
+            }
+
+            return dayEntry;
         }
         catch(IOException e)
         {
@@ -75,17 +123,20 @@ public class StorageManager
         return null;
     }
 
-    public Map<String, DayEntry> getAllEntries()
+    private void initAllEntries()
     {
         File baseDir = new File(Util.getExternalStorageDir(mContext).getAbsolutePath());
         File [] allFiles = baseDir.listFiles();
 
-        Map<String, DayEntry>  map = new TreeMap<>(mDateComparator);
         for(File file: allFiles)
         {
-            map.put(file.getName(), extract(file));
+            mAllEntriesMap.put(file.getName(), extract(file));
         }
-        return map;
+    }
+
+    public Map<String, DayEntry> getAllEntries()
+    {
+        return mAllEntriesMap;
     }
 
     public DayEntry getTodayEntry()
@@ -101,14 +152,37 @@ public class StorageManager
         return null;
     }
 
-    private Comparator<String> mDateComparator = new Comparator<String>()
+    public OneEntry getEntry(int id)
     {
-        @Override
-        public int compare(String strDate1, String strDate2)
+        Map<String, DayEntry> entryMap = getAllEntries();
+        for(DayEntry dayEntry: entryMap.values())
         {
-            Date d1 = Util.getDateFromString(strDate1);
-            Date d2 = Util.getDateFromString(strDate2);
-            return d1.compareTo(d2);
+            for(OneEntry oneEntry: dayEntry.getEntryList())
+            {
+                if(oneEntry.getId() == id)
+                {
+                    return oneEntry;
+                }
+            }
         }
-    };
+
+        return null;
+    }
+
+    public DayEntry getDayEntryForOneEntry(int id)
+    {
+        Map<String, DayEntry> entryMap = getAllEntries();
+        for(DayEntry dayEntry: entryMap.values())
+        {
+            for(OneEntry oneEntry: dayEntry.getEntryList())
+            {
+                if(oneEntry.getId() == id)
+                {
+                    return dayEntry;
+                }
+            }
+        }
+
+        return null;
+    }
 }

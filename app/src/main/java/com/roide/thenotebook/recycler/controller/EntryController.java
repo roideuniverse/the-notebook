@@ -2,12 +2,14 @@ package com.roide.thenotebook.recycler.controller;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.carrotcreative.recyclercore.adapter.RecyclerCoreController;
 import com.roide.thenotebook.R;
+import com.roide.thenotebook.activities.EditEntry;
 import com.roide.thenotebook.recycler.model.EntryModel;
 import com.roide.thenotebook.util.Util;
 
@@ -45,6 +47,7 @@ public class EntryController extends RecyclerCoreController<EntryModel> {
         }
 
         bindEntryDate(model);
+        bindOnClick(model);
     }
 
     private void bindEntryDate(EntryModel entryModel)
@@ -59,5 +62,17 @@ public class EntryController extends RecyclerCoreController<EntryModel> {
         {
             mEntryWeekContainer.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void bindOnClick(final EntryModel model)
+    {
+        itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                EditEntry.launch(getContext(), model.getEntry().getId());
+            }
+        });
     }
 }
