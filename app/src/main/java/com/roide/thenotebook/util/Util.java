@@ -82,4 +82,18 @@ public class Util
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
+
+    public static String getWeekDayName(String strDate)
+    {
+        Date date = getDateFromString(strDate);
+        String dayName = new SimpleDateFormat("EEE").format(date);
+        return dayName;
+    }
+
+    public static String getDay(String strDate)
+    {
+        Date date = getDateFromString(strDate);
+        String day = new SimpleDateFormat("dd").format(date);
+        return day;
+    }
 }
